@@ -1,0 +1,89 @@
+/*Connection connection;
+
+        try {
+            Driver driver = new FabricMySQLDriver();
+            DriverManager.registerDriver(driver);
+
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            if(!connection.isClosed()) {
+                System.out.println("Соединение устновлено");
+            }
+
+            connection.close();
+
+            if(connection.isClosed()) {
+                System.out.println("Соединение закрыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        //statement.execute("INSERT INTO books (title, author) VALUES ('intellij', 'first')");
+                    //int res = statement.executeUpdate("UPDATE books SET author = 'second' WHERE author = 'first'");
+                    //ResultSet res = statement.executeQuery("SELECT * FROM books");
+
+                    //statement.addBatch("INSERT INTO books (title, author) VALUES ('olya', 'qwerty')");
+                    //statement.addBatch("INSERT INTO books (title, author) VALUES ('max', 'sql')");
+                    //statement.addBatch("INSERT INTO books (title, author) VALUES ('alex', 'java')");
+
+
+
+        try {
+                    Driver driver = new FabricMySQLDriver();
+                    DriverManager.registerDriver(driver);
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("First try-catch");
+
+                }
+
+                String query = "SELECT * FROM books";
+
+                try {
+                    Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    Statement statement = connection.createStatement();
+
+                    ResultSet resultSet = statement.executeQuery(query);
+
+                    Book book = new Book();
+                    while (resultSet.next()) {
+                        String title = resultSet.getString("title");
+                        String author = resultSet.getString("author");
+                        book.setTitle(title);
+                        book.setAuthor(author);
+                        System.out.println(book);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("Second try-catch");
+                }
+
+
+
+
+
+
+
+
+
+
+                 Connection connection;
+                        PreparedStatement preparedStatement;
+
+                        try {
+                            Driver driver = new FabricMySQLDriver();
+                            DriverManager.registerDriver(driver);
+                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                            preparedStatement = connection.prepareStatement(INSERT_NEW);
+                            preparedStatement.setString(1, "mainkampf");
+                            preparedStatement.setString(2, "adolf gitler");
+
+                            preparedStatement.execute();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            System.out.println("First try-catch");
+
+                        }
